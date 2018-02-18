@@ -49,6 +49,8 @@ h4,
 #prev button,
 #next button{
 	color: white;
+	border: 1px solid;
+	border-radius: 50%;
 }
 
 .card{
@@ -100,6 +102,11 @@ span.google-red{
 	background-color: white;
 	color: #ea4335;
 }
+
+.hide{
+	display: none;
+}
+
 
 
 
