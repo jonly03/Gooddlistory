@@ -1,6 +1,6 @@
 # [Today in Google Doodles history](https://jonly03.github.io/today-in-google-doodles-history/)
 ## [Go back in Google Doodles history and get doodles for any date.](https://jonly03.github.io/today-in-google-doodles-history/)
-![February 19 in Google Doodles history](/images/feb192018)
+![February 19 in Google Doodles history](/images/feb192018.png)
 ### Note: Add [the Allow-Control-Allow-Origin: * Chrome extension](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en) and enable it to get the page to work. 
 Otherwise you will get a `No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'null' is therefore not allowed access.` error.
 
