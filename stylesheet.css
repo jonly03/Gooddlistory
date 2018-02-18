@@ -2,20 +2,13 @@ html{
 	font-size: 10px;
 }
 
-@font-face{
-   font-family: “billabong”;
-   src: url(“https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.eot?#iefix“) format(‘embedded-opentype’),
-   url(“https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.woff”) format(‘woff’), 
-   url(“https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.ttf”) format(‘truetype’), 
-   url(“https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.svg#billabongregular”) format(‘svg’); 
-}
 
 h1, h4,
 #prev,
-#next{
+#next,
+#user-input{
 	font-family: 'Sedgwick Ave Display', cursive;;
 	text-align: center;
-	
 	letter-spacing: -1px;
 }
 
@@ -31,6 +24,17 @@ h4,
 	display: inline-flex;
 	font-size: 3rem;
 	font-weight: 100;
+}
+
+#current-date:hover{
+	cursor: pointer;
+}
+
+#user-input{
+	display: inline-flex;
+	font-size: 1.9rem;
+	margin-left: 50px;
+	color: white;
 }
 
 #prev{

@@ -4,18 +4,19 @@ $(document).ready(function(){
 	// Google doodles history starts on 1998/8/30
 	// https://en.wikipedia.org/wiki/Google_Doodle
 
+	var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 	// Parse current date for year, month, date
 	let currentDate = getFormattedDate(new Date());
 
 	// Change background colors on hover
 	$("body").on('mouseenter', '.btn-primary, button', function(){
-		let bgColor = getRandGoogleColor(); // + '!important';
-		$(this).css('background-color', bgColor);
+		$(this).css('background-color', getRandGoogleColor());
 	});
 	
 	$("body").on('mouseleave', '.btn-primary, button', function(){
-		let bgColor = getRandGoogleColor(); // + ' !important';
-		$(this).css('background-color', bgColor);
+		
+		$(this).css('background-color', getRandGoogleColor());
 	});
 
 	$('body').on('click', '#prev button', function(event){
@@ -32,16 +33,92 @@ $(document).ready(function(){
 		renderDoodles(currentDate);
 	})
 
-	
+	$('body').on('mouseover', '#current-date', function(evernt){
+		$('#static-date').addClass('hide');
+		$('#edit-date').removeClass('hide');
+		$('#submit').css('background-color', getRandGoogleColor());
+		$('#user-input').css('background-color', getRandGoogleColor());
+		$('#user-input').val(formatCurrentDateForUserInput());
+	})
 
+	$('body').on('mouseleave', '#edit-date', function(event){
+		$('#edit-date').addClass('hide');
+		$('#static-date').removeClass('hide');
+	})
+
+	$('body').on('click', '#submit', function(event){
+		event.preventDefault();
+
+		$('#edit-date').addClass('hide');
+		$('#static-date').removeClass('hide');
+
+		let userInput = $('#user-input').val();
+		let isValidDate = isValidDateString(userInput);
+		if (isValidDate.status){
+			// Parse user input
+			let userInputParts = userInput.split('/');
+			currentDate.monthAsNumber = Number(userInputParts[0]);
+			currentDate.monthAsString = months[currentDate.monthAsNumber - 1];
+			currentDate.day = Number(userInputParts[1]);
+			currentDate.year = Number(userInputParts[2]);
+
+			renderDoodles(currentDate);
+
+		}else{
+			let alert = $('<div class="alert alert-danger alert-dismissible">' +
+					    	'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + 
+					    	'<strong>Error! </strong>' +  isValidDate.msg + ' Try a different date.' +
+					  	'</div>');
+			$('#edit-date').append(alert);
+		}
+	})
+
+	
 	renderPageTitle();
 	renderDoodles(currentDate);
 
-	
+	/************
+	Validation Helpers
+	************/
+	function isValidDateString(dateString){
+		// Addapted from https://stackoverflow.com/questions/6177975/how-to-validate-date-with-format-mm-dd-yyyy-in-javascript
+
+	    // First check for the pattern
+	    if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)){
+	        return {status:false, msg:'The date has to be in MM/DD/YYYY format.'};
+	    }
+
+	    // Parse the date parts to integers
+	    var parts = dateString.split("/");
+	    var month = parseInt(parts[0], 10);
+	    var day = parseInt(parts[1], 10);
+	    var year = parseInt(parts[2], 10);
+
+	    // Check the ranges of month and days
+	    if(month == 0 || month > 12){
+	        return {status:false, msg:'The month has to be between 01 and 12.'};
+	    }else{
+	    	// Check the range of the day
+		    let monthLengths = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+		    // Adjust for leap years
+		    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)){
+		        monthLengths[1] = 29;
+		    }
+
+	    	if (day <= 0 || day > monthLengths[month - 1]){
+	    		return {status:false, msg:'The day has to be between 01 and ' + monthLengths[month - 1] + ' for ' + months[month - 1] + ' ' + year + '.'};
+	    	}else{
+	    		return {status: true};
+	    	}
+	    };
+	};
+
 	/************
 	UI Helpers
 	************/
 	function renderDoodles(date){
+
 		renderPageSubTitle(date);
 
 		$('.container').empty();
@@ -173,7 +250,7 @@ $(document).ready(function(){
 					url: parseImgUrl(doodle.hires_url),
 					title: doodle.query,
 					sub_title: getFormattedDateString(doodleDate),
-					google_query: 'https://www.google.com/search?q=' + doodle.query + ' ' + doodleDate.day + ' ' + doodleDate.monthAsNumber + ' ' + doodleDate.year
+					google_query: 'https://www.google.com/search?q=' + doodle.query + ' ' + doodleDate.monthAsString + ' ' +doodleDate.day +  ' ' + doodleDate.year
 				}
 
 				todaysDoodles.push(newDoodle);
@@ -250,5 +327,11 @@ $(document).ready(function(){
 		
 		return getFormattedDate(new Date(tempCurrentDate));
 	}
+
+	function formatCurrentDateForUserInput(){
+		return (currentDate.monthAsNumber < 10 ? '0' + currentDate.monthAsNumber : currentDate.monthAsNumber) + '/' + (currentDate.day < 10 ? '0' + currentDate.day : currentDate.day)  + '/' + currentDate.year;
+	}
+
+
 
 })

@@ -8,6 +8,8 @@
 	<!-- Boostrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
 
@@ -20,13 +22,20 @@
 		<div class='heading'>
 			<h1 id='title'></h1>
 			<div id='sub-title'>
-				<div id='prev'>
-					<button><</button>
+				<div id='static-date'>
+					<div id='prev'>
+						<button><</button>
+					</div>
+					<h4><em id='current-date'></em></h4>
+					<div id='next'>
+						<button>></button>
+					</div>
 				</div>
-				<h4><em id='current-date'></em></h4>
-				<div id='next'>
-					<button>></button>
+				<div id='edit-date' class='hide'>
+					<input id='user-input' type="text" name="new-date">
+					<button id='submit' class='btn btn-primary'>Get doodles</button>
 				</div>
+				
 			</div>
 			
 		</div>
