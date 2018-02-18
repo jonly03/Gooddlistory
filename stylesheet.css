@@ -10,21 +10,50 @@ html{
    url(“https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.svg#billabongregular”) format(‘svg’); 
 }
 
-h1{
+h1, h4,
+#prev,
+#next{
 	font-family: 'Sedgwick Ave Display', cursive;;
 	text-align: center;
-	font-size: 8rem;
-	font-weight: 100;
-	margin: 2rem 0;
+	
 	letter-spacing: -1px;
 }
 
-.card{
-	width: 30rem;
+h1{
+	font-size: 8rem;
+	font-weight: 100;
+	margin: 2rem 0;
 }
 
-.card-body{
+h4,
+#prev,
+#next{
+	display: inline-flex;
+	font-size: 3rem;
+	font-weight: 100;
+}
+
+#prev{
+	margin-right: 10px;
+}
+
+#next{
+	margin-left: 10px;
+}
+
+#sub-title{
 	text-align: center;
+	margin-bottom: 2rem;
+}
+
+#prev button,
+#next button{
+	color: white;
+}
+
+.card{
+	text-align: center;
+	margin-bottom: 5px;
 }
 
 .card-body .btn{
@@ -32,6 +61,47 @@ h1{
 }
 
 img{
-	max-width: 100%;
+	width: 360px;
+	height: 140px;
 }
+
+.google-blue{
+	background-color: #4285f4;
+}
+
+.google-green{
+	background-color: #34a853;
+}
+
+.google-yellow{
+	background-color: #fbbc05;
+}
+
+.google-red{
+	background-color: #ea4335;
+}
+
+span.google-blue{
+	background-color: white;
+	color: #4285f4;
+}
+
+span.google-green{
+	background-color: white;
+	color: #34a853;
+}
+
+span.google-yellow{
+	background-color: white;
+	color: #fbbc05;
+}
+
+span.google-red{
+	background-color: white;
+	color: #ea4335;
+}
+
+
+
+
 
