@@ -232,9 +232,10 @@ $(document).ready(function(){
 
 	function getDoodlesByDate(todaysDoodles, year, month, day){
 		$.ajax({
-			url: 'https://www.google.com/doodles/json/' + year + '/' + month + '?hl=en',
+			url: 'https://google-doodles.herokuapp.com/doodles/' + year + '/' + month + '?hl=en',
 			method: 'GET'
-		}).then(function(doodles){
+		}).then(function parseDoodlesResponse(doodles){
+			
 			let filteredDoodles = filterDoodlesByDay(doodles, day);
 			
 			filteredDoodles.forEach(function(doodle){
@@ -258,10 +259,8 @@ $(document).ready(function(){
 
 			if (filteredDoodles.length){
 				showDoodles(todaysDoodles);
-			}
-			
-			
-		});
+			}		
+		})
 	}
 
 	function getFormattedDateString(doodleDate){
