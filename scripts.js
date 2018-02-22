@@ -131,7 +131,8 @@ $(document).ready(function(){
 
 		container.empty();
 
-		let row = ""; // Variable to hold our row
+		let row = $('<div>').addClass('row'); 
+		// ""; // Variable to hold our row
 
 		doodles.sort(sortDoodlesByDate)
 
@@ -139,23 +140,23 @@ $(document).ready(function(){
 			let card = $(createDoodleCard(doodle));
 
 			// Show 3 doodles per row if we can
-			if (doodlesCount <= 3){
+			// if (doodlesCount <= 3){
 				
-				if (doodlesCount === 0){
-					// Create a new row
-					row = $('<div>').addClass('row');
-				}
+			// 	if (doodlesCount === 0){
+			// 		// Create a new row
+			// 		row = $('<div>').addClass('row');
+			// 	}
 
 				var col = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4');
 				col.html(card);
 				row.append(col);
-				doodlesCount++;
-			}
+				// doodlesCount++;
+			// }
 
-			if (doodlesCount === 3){
-				doodlesCount = 0;
+			// if (doodlesCount === 3){
+			// 	doodlesCount = 0;
 				container.append(row);
-			}
+			// }
 		});
 
 		container.append(row);
