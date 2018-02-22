@@ -7,7 +7,7 @@ $(document).ready(function(){
 	var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	// Parse current date for year, month, date
-	let currentDate = getFormattedDate(new Date());
+	let currentDate = getFormattedDate(moment());
 
 	// Change background colors on hover
 	$("body").on('mouseenter', '.btn-primary, button', function(){
@@ -139,24 +139,12 @@ $(document).ready(function(){
 		doodles.forEach(function(doodle){
 			let card = $(createDoodleCard(doodle));
 
-			// Show 3 doodles per row if we can
-			// if (doodlesCount <= 3){
-				
-			// 	if (doodlesCount === 0){
-			// 		// Create a new row
-			// 		row = $('<div>').addClass('row');
-			// 	}
+			var col = $('<div>').addClass('col-xs-12 col-md-4');
+			col.html(card);
 
-				var col = $('<div>').addClass('col-xs-12 col-md-4');
-				col.html(card);
-				row.append(col);
-				// doodlesCount++;
-			// }
+			row.append(col);
 
-			// if (doodlesCount === 3){
-			// 	doodlesCount = 0;
-				container.append(row);
-			// }
+			container.append(row);
 		});
 
 		container.append(row);
@@ -292,20 +280,26 @@ $(document).ready(function(){
 
 	function getFormattedDate(date){
 		return {
-			year: date.getFullYear(),
-			monthAsNumber: date.getMonth() + 1,
-			monthAsString: date.toLocaleString('en-us', {month:'long'}),
-			day: date.getDate()
+			year: date.year(),
+			monthAsNumber: date.month() + 1,
+			monthAsString: moment().subtract(0, "month").startOf("month").format('MMMM'),
+			day: date.date()
 		}
 	}
 
 	function getDoodleDate(doodle){
 		// The doodle date is in the run_date_array property
-		// {run_date_array:[YYY, MM, DD]}
-		let doodleDateString = doodle.run_date_array.reduce(function(acc, next){
-			return acc += next + '/'
+		// {run_date_array:[YYY, M, D]}
+		// Return a short full date moment supported ISO 8601 e.g.20130208
+		let doodleDateString = doodle.run_date_array.reduce(function(acc, curr, currIdx){
+			let currVal = curr;
+			if (currIdx === 1 || (currIdx === 2 && curr < 10)){
+				currVal = '0' + curr;
+			}
+
+			return acc += currVal
 		}, '');
-		return new Date(doodleDateString);
+		return moment(doodleDateString);
 	}
 
 	function isPast(date1, date2){
@@ -317,15 +311,24 @@ $(document).ready(function(){
 	}
 
 	function getConsecutiveDate(doodleDate, type){
-		let tempCurrentDate = new Date(getFormattedDateString(doodleDate));
+		let momentISO8601 = ''+ doodleDate.year;
+
+		if (doodleDate.monthAsNumber < 10) momentISO8601 += '0';
+		momentISO8601 += doodleDate.monthAsNumber;
+
+		if (doodleDate.day < 10) momentISO8601 += '0';
+		momentISO8601 += doodleDate.day;
+
+
+		let tempCurrentDate = moment(momentISO8601);
 
 		if (type === 'next'){
-			tempCurrentDate = tempCurrentDate.setDate(tempCurrentDate.getDate() + 1);
+			tempCurrentDate.add(1, 'days');
 		}else if (type == 'prev'){
-			tempCurrentDate = tempCurrentDate.setDate(tempCurrentDate.getDate() - 1);
+			tempCurrentDate.subtract(1, 'days');
 		}else{}
 		
-		return getFormattedDate(new Date(tempCurrentDate));
+		return getFormattedDate(moment(tempCurrentDate));
 	}
 
 	function formatCurrentDateForUserInput(){
