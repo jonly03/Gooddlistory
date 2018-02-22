@@ -147,7 +147,7 @@ $(document).ready(function(){
 			// 		row = $('<div>').addClass('row');
 			// 	}
 
-				var col = $('<div>').addClass('col-xs-12 col-sm-6 col-md-4');
+				var col = $('<div>').addClass('col-xs-12 col-md-4');
 				col.html(card);
 				row.append(col);
 				// doodlesCount++;
