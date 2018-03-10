@@ -38,16 +38,23 @@ $(document).ready(function(){
 		$('#edit-date').removeClass('hide');
 		$('#submit').css('background-color', getRandGoogleColor());
 		$('#user-input').css('background-color', getRandGoogleColor());
-		$('#user-input').val(formatCurrentDateForUserInput());
+
+		if (!$('.alert').hasClass('error')){
+			$('#user-input').val(formatCurrentDateForUserInput());
+		}
 	})
 
 	$('body').on('mouseleave', '#edit-date', function(event){
-		$('#edit-date').addClass('hide');
-		$('#static-date').removeClass('hide');
+		if (!$('.alert').hasClass('error')){
+			$('#edit-date').addClass('hide');
+			$('#static-date').removeClass('hide');
+		}
 	})
 
 	$('body').on('click', '#submit', function(event){
 		event.preventDefault();
+
+		$('.alert').remove();
 
 		$('#edit-date').addClass('hide');
 		$('#static-date').removeClass('hide');
@@ -55,6 +62,10 @@ $(document).ready(function(){
 		let userInput = $('#user-input').val();
 		let isValidDate = isValidDateString(userInput);
 		if (isValidDate.status){
+
+			// if ($('.alert'))
+			// $('.alert').removeClass('error');
+
 			// Parse user input
 			let userInputParts = userInput.split('/');
 			currentDate.monthAsNumber = Number(userInputParts[0]);
@@ -65,11 +76,12 @@ $(document).ready(function(){
 			renderDoodles(currentDate);
 
 		}else{
-			let alert = $('<div class="alert alert-danger alert-dismissible">' +
+			let alert = $('<div class="alert alert-danger alert-dismissible error">' +
 					    	'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + 
 					    	'<strong>Error! </strong>' +  isValidDate.msg + ' Try a different date.' +
 					  	'</div>');
-			$('#edit-date').append(alert);
+			$('#edit-date').append(alert).removeClass('hide');
+			$('#static-date').addClass('hide');
 		}
 	})
 
