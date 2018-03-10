@@ -282,7 +282,7 @@ $(document).ready(function(){
 		return {
 			year: date.year(),
 			monthAsNumber: date.month() + 1,
-			monthAsString: moment().subtract(0, "month").startOf("month").format('MMMM'),
+			monthAsString: date.month(date.month()).format('MMMM'),
 			day: date.date()
 		}
 	}
