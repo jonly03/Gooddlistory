@@ -51,6 +51,13 @@ $(document).ready(function(){
 		}
 	})
 
+	// Handle clicking Enter key when editing the date
+	$('#user-input').keydown(function (e) {
+	  if (e.keyCode == 13) {
+	    $('#submit').click();
+	  }
+	});
+
 	$('body').on('click', '#submit', function(event){
 		event.preventDefault();
 
