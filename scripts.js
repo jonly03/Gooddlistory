@@ -33,7 +33,7 @@ $(document).ready(function(){
 		renderDoodles(currentDate);
 	})
 
-	$('body').on('mouseover', '#current-date', function(evernt){
+	$('body').on('mouseover click', '#current-date', function(evernt){
 		$('#static-date').addClass('hide');
 		$('#edit-date').removeClass('hide');
 		$('#submit').css('background-color', getRandGoogleColor());
@@ -45,6 +45,13 @@ $(document).ready(function(){
 	})
 
 	$('body').on('mouseleave', '#edit-date', function(event){
+		if (!$('.alert').hasClass('error')){
+			$('#edit-date').addClass('hide');
+			$('#static-date').removeClass('hide');
+		}
+	})
+
+	$('body').on('click', function(event){
 		if (!$('.alert').hasClass('error')){
 			$('#edit-date').addClass('hide');
 			$('#static-date').removeClass('hide');
