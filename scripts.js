@@ -33,7 +33,7 @@ $(document).ready(function(){
 		renderDoodles(currentDate);
 	})
 
-	$('body').on('mouseover click', '#current-date', function(evernt){
+	$('body').on('click', '#current-date', function(evernt){
 		$('#static-date').addClass('hide');
 		$('#edit-date').removeClass('hide');
 		$('#submit').css('background-color', getRandGoogleColor());
