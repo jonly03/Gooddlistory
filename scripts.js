@@ -319,7 +319,7 @@ $(document).ready(function(){
 		// Return a short full date moment supported ISO 8601 e.g.20130208
 		let doodleDateString = doodle.run_date_array.reduce(function(acc, curr, currIdx){
 			let currVal = curr;
-			if (currIdx === 1 || (currIdx === 2 && curr < 10)){
+			if ( curr < 10){
 				currVal = '0' + curr;
 			}
 
