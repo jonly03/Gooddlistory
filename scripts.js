@@ -263,7 +263,7 @@ $(document).ready(function(){
 						month: doodleDate.monthAsNumber,
 						day: doodleDate.day
 					},
-					url: parseImgUrl(doodle.hires_url),
+					url: parseImgUrl(doodle.high_res_url),
 					title: doodle.query,
 					sub_title: getFormattedDateString(doodleDate),
 					google_query: 'https://www.google.com/search?q=' + doodle.query + ' ' + doodleDate.monthAsString + ' ' +doodleDate.day +  ' ' + doodleDate.year
